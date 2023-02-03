@@ -17,17 +17,17 @@ PostgreSQL Install Instructions
  
 ## Initial Project Setup
 Create a new directory to house the project 
-
+```
 ~$ mkdir djangoproject 
-
+```
 Create a virtual environment with: 
-
+```
 ~$ virtualenv venv 
-
+```
 Activate the virtual environment. Once it is activated, you will see the name of the virtual environment in parentheses at the beginning of your command line, like this: (venv)~$ 
-
+```
 ~$ source venv/bin/activate 
-
+```
 Install Django  
 
 (venv)~$ pip install django 
@@ -72,6 +72,7 @@ postgres# \q
 
 Under the DATABASES section in your settings.py, edit it to the following making sure to add the information that you used in the earlier step. If you want a copy/paste option, check out the samples contained in this repository.   
 
+```
 DATABASES = {  
 
     'default': {  
@@ -92,7 +93,7 @@ DATABASES = {
 
 }  
 
- 
+```
 
 Screenshot Here 
 
