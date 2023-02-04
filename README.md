@@ -282,19 +282,65 @@ Deploy with eb deploy after everything is updated
 
 ## Automate the createsuperuser command for your live site 
 
-The easiest (and simplest) way to create a superuser for your live database is to put it into your configuration file.  
+The easiest (and simplest) way to create a superuser for your live database is to put it into your eb-commands.config file. In order to do that, you need to set up some Python code to run. In order to do that, we can create a new app to hold our code.   
 
-Create a new app with django admin 
+
+
+Create a new app with django admin, you can call it whatever you like to help you stay organized. For this example, I will use 'accounts'. 
+
+```
+django-admin startapp accounts
+
+```
 
 Create a new directory within it called management 
 
+```
+mkdir management
+
+```
+cd into management directory and create __init__.py file within management directory
+
+```
+touch __init__.py
+
+```
+Create a directory within management directory called commands
+
+```
+mkdir commands
+
+```
+cd into commands directory and create __init__.py file within commands directory 
+
+```
+touch __init__.py
+
+```
 Create a new file called createsuper.py 
 
-Add the following code to the createsuper.py file 
+```
+touch createsuper.py
 
-Add the following code to your configuration file:  
+```
+Add the following code to the createsuper.py file. Check the samples in this repository for a sample file. 
 
- 
+```
+from django.contrib.auth import get_user_model
+from django.core.management.base import BaseCommand
+
+class Command(BaseCommand):
+    def handle(self, *args, **options):
+        User = get_user_model()
+        if not User.objects.filter(username="yourusername").exists():
+            User.objects.create_superuser("yourusername", "emailaddress@email.com", "passwordforuser")
+```
+Once you have added the code above, head back to your eb-commands.config file and add the following code to your configuration file:  
+```
+  03_createsuper:
+    command: "source /var/app/venv/*/bin/activate && python3 manage.py createsuper"
+    leader_only: true
+```
 
 Now, you will have a superuser created when you deploy your site. No need to get rid of the code, unless you want to be really strict with security, as the code will only create the superuser if there is not already a superuser with the account name.  
 
