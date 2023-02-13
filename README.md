@@ -1,3 +1,8 @@
+
+# WARNING!
+
+* These instructions are not complete. I am working through the RDS configuration as well as the automation parts of this to make sure it is all working properly. I have not documented those parts as well.
+
 # Instructions
 
 Here are the steps that I took to deploy a Django Web Application to AWS Elastic Beanstalk using an RDS managed database running PostgreSQL.  
