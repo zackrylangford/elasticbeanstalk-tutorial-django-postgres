@@ -58,7 +58,7 @@ pip install psycopg2-binary
 
 Install ebhealthcheck (optional) - If you are running an application load balanced environment, this will ensure that your health checks will work properly. Without it, you will run into health check issues in your environment.  
 ```
-pip install ebhealthcheck 
+pip install django-ebhealthcheck 
 ```
 Add ebhealthcheck to settings.py INSTALLED APPS  
 ```
