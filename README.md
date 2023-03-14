@@ -56,22 +56,6 @@ Install pyscopg2-binary for configuring your local database. (This seems to be t
 pip install psycopg2-binary 
 ```
 
-Install ebhealthcheck (optional) - If you are running an application load balanced environment, this will ensure that your health checks will work properly. Without it, you will run into health check issues in your environment.  
-```
-pip install django-ebhealthcheck 
-```
-Add ebhealthcheck to settings.py INSTALLED APPS  
-```
-INSTALLED_APPS = [ 
-
-    ... 
-
-    'ebhealthcheck.apps.EBHealthCheckConfig', 
-
-    ... 
-
-] 
-```
 Verify that all of your packages are installed with pip freeze 
 ```
 pip freeze 
@@ -188,9 +172,26 @@ Add a Procfile – Create a file called “Procfile.txt” and add the following
 ```
 web:gunicorn --bind:8000 --workers 3 --threads 2 <your_project_name>.wsgi:application 
 ```
+Install ebhealthcheck (optional) - If you are running an application load balanced environment, this will ensure that your health checks will work properly. Without it, you will run into health check issues in your environment.  
+```
+pip install django-ebhealthcheck 
+```
+Add ebhealthcheck to settings.py INSTALLED APPS  
+```
+INSTALLED_APPS = [ 
+
+    ... 
+
+    'ebhealthcheck.apps.EBHealthCheckConfig', 
+
+    ... 
+
+] 
+```
 Next, we are going to deploy our application to Elastic Beanstalk. There is still more to go after this step though, as we are going to have to set up a live RDS Postgres Database so that our application will be able to work. 
 
- 
+
+
 ## Deploy the Application using the EB CLI  
 
 Initialize the repository with eb init command: 
