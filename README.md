@@ -173,11 +173,6 @@ option_settings:
   aws:elasticbeanstalk:container:python: 
     WSGIPath: ebdjango.wsgi:application 
 ```
-
-Add a Procfile – Create a file called “Procfile.txt” and add the following, making sure to substitute the name of your project  
-```
-web:gunicorn --bind:8000 --workers 3 --threads 2 <your_project_name>.wsgi:application 
-```
 Install ebhealthcheck (optional) - If you are running an application load balanced environment, this will ensure that your health checks will work properly. Without it, you will run into health check issues in your environment.  
 ```
 pip install django-ebhealthcheck 
