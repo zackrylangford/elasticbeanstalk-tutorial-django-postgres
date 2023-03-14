@@ -3,7 +3,6 @@
 
 Here are the steps that I took to deploy a Django Web Application to AWS Elastic Beanstalk using an RDS managed database running PostgreSQL. I last used this in a successful deployment on March 13th, 2023.
 
-
 ## Prerequisites
 Pre-requisites: Python, PostgreSQL, pip, virtualenv, awsebcli (with aws credentials set up) 
 
