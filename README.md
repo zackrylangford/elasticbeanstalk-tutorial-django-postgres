@@ -199,9 +199,9 @@ Initialize the repository with eb init command:
 ```
 eb init 
 ```
-Answer the question prompts to make sure you are setting it up in the correct region and with an SSH key (optional) as well as specifying the type of load balancer. For this project, selet Application Load Balancer. 
+Answer the question prompts to make sure you are setting it up in the correct region and with an SSH key (optional). 
 
-Create an environment and deploy the application to it with eb create. This will ask you about the name, etc. 
+Create an environment and deploy the application to it with eb create. This will ask you about the name, etc.  This will ask about specifying the type of load balancer. For this project, select Application Load Balancer.
 ```
 eb create 
 ```
