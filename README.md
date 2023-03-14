@@ -208,13 +208,15 @@ eb create
 
 Once you have completed that, it will go through and create the resources (may take a couple of minutes) 
 
-Use eb status after everything is created to check the status.
+Use eb status after everything is created to check the status. 
+## You will get an error on this deployment, as you need to have the below added in so that it will work. 
 ```
 eb status 
 ```
+## IMPORTANT 
 Copy the CNAME property (this is the domain name of where the application is located)  
 
-Open the settings.py file and locate the ALLOWED_HOSTS setting and add the CNAME into that section.  
+Open the settings.py file and locate the ALLOWED_HOSTS setting and add the CNAME into that section. If you don't add this to the allowed hosts, you will get errors and your site will not be available. 
 
 Save that file and run eb deploy to update that: eb deploy 
 
