@@ -150,6 +150,8 @@ python manage.py runserver
 ```
 4. Check the site in a browser at 127.0.0.1:8000  
 
+5. Login to the admin site with your superuser account credentials that you set up at 127.0.0.1:8000/admin
+
 If you made it here, you have successfully installed django and the basic requirements for deploying it to AWS Elastic Beanstalk!
  
 
