@@ -134,17 +134,21 @@ python manage.py migrate
 
 Once you have set up your local database, you can create a superuser in order to administrate your application. This will be your local superuser, when we set up the RDS for the live environment, we will set up the live superuser as well as automate that process.  
 
-1. Create superuser 
+1. Migrate the Database if you haven't already
+```
+python manage.py migrate  
+```
+2. Create superuser 
 ```
 python manage.py createsuperuser  
 ```
- Run your Django site locally 
+3. Run your Django site locally 
 
 Run the Django site locally to see if the install worked:  
 ```
 python manage.py runserver 
 ```
-Check the site in a browser at 127.0.0.1:8000  
+4. Check the site in a browser at 127.0.0.1:8000  
 
 If you made it here, you have successfully installed django and the basic requirements for deploying it to AWS Elastic Beanstalk!
  
