@@ -387,7 +387,15 @@ Once you have added the code above, head back to your eb-commands.config file an
     command: "source /var/app/venv/*/bin/activate && python3 manage.py createsuper"
     leader_only: true
 ```
-
+Make sure to add the 'accounts' app to your settings.py INSTALLED APPS:
+```
+INSTALLED_APPS = [
+    ...
+    'accounts',
+    'ebhealthcheck.apps.EBHealthCheckConfig',
+    ...
+]
+```
 Now, you will have a superuser created when you deploy your site. No need to get rid of the code, unless you want to be really strict with security, as the code will only create the superuser if there is not already a superuser with the account name.  
 
  
