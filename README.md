@@ -1,11 +1,7 @@
 
-# WARNING!
-
-* These instructions are not complete. I am working through the RDS configuration as well as the automation parts of this to make sure it is all working properly. I have not documented those parts as well.
-
 # Instructions
 
-Here are the steps that I took to deploy a Django Web Application to AWS Elastic Beanstalk using an RDS managed database running PostgreSQL.  
+Here are the steps that I took to deploy a Django Web Application to AWS Elastic Beanstalk using an RDS managed database running PostgreSQL. I last used this in a successful deployment on March 13th, 2023.
 
 
 ## Prerequisites
@@ -289,10 +285,51 @@ Add a configuation file in .ebextensions called eb-commands.config (see instruct
 Deploy with eb deploy after everything is updated 
 
 
+## Collecting Static Files and Automating the database migrations process by adding the following to your eb-commands.config file
+
+1. Create a new config file in your .ebextensions directory called: eb-commands.config
+
+```
+touch eb-commands.config
+```
+
+Add the following to the file and make sure to change the ebdjango.settings to reflect your project name
+
+```
+
+  01_collectstatic: 
+    command: "source /var/app/venv/*/bin/activate && python3 manage.py collectstatic --noinput"
+    leader_only: true
+  02_migrate:
+    command: "source /var/app/venv/*/bin/activate && python3 manage.py migrate --noinput"
+    leader_only: true
+
+option_settings:
+  aws:elasticbeanstalk:application:environment:
+      DJANGO_SETTINGS_MODULE: ebjango.settings
+      PYTHONPATH: "/var/app/current:$PYTHONPATH"
+  aws:elasticbeanstalk:environment:proxy:staticfiles:
+    /static: static
+
+```
+
+Make sure to add a STATIC_ROOT to your settings.py as well:
+
+```
+ Static files (CSS, JavaScript, Images)   
+
+ https://docs.djangoproject.com/en/2.2/howto/static-files/     
+
+  
+
+STATIC_URL = '/static/'   
+
+STATIC_ROOT = 'static'     
+```
+
 ## Automate the createsuperuser command for your live site 
 
 The easiest (and simplest) way to create a superuser for your live database is to put it into your eb-commands.config file. In order to do that, you need to set up some Python code to run. In order to do that, we can create a new app to hold our code.   
-
 
 
 Create a new app with django admin, you can call it whatever you like to help you stay organized. For this example, I will use 'accounts'. 
@@ -302,7 +339,7 @@ django-admin startapp accounts
 
 ```
 
-Create a new directory within it called management 
+Change directory into accounts/ and create a new directory within it called management 
 
 ```
 mkdir management
@@ -326,13 +363,13 @@ cd into commands directory and create __init__.py file within commands directory
 touch __init__.py
 
 ```
-Create a new file called createsuper.py 
+Create a new file called makesuper.py 
 
 ```
-touch createsuper.py
+touch makesuper.py
 
 ```
-Add the following code to the createsuper.py file. Check the samples in this repository for a sample file. 
+Add the following code to the makesuper.py file. Check the samples in this repository for a sample file. 
 
 ```
 from django.contrib.auth import get_user_model
@@ -355,35 +392,9 @@ Now, you will have a superuser created when you deploy your site. No need to get
 
  
 
-## Collecting Static Files and Automating the process 
-
-Tell Django where to Collect the static files by updating the settings.py with the following:      
-
-  
-
-  Screen shot 
 
  
 
- Static files (CSS, JavaScript, Images)   
-
- https://docs.djangoproject.com/en/2.2/howto/static-files/     
-
-  
-
-STATIC_URL = '/static/'   
-
-STATIC_ROOT = 'static'     
-
-  
-
-  
-
-Collect the static files with      
-
-~python manage.py collectstatic   
-
-  
 
     
 
